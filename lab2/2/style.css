@@ -1,0 +1,21 @@
+body {
+    background-color: blue;
+}
+
+.main {
+    text-align: center;
+    opacity: 0.6;
+    /*background-color: blue;*/
+    border-radius: 25px;
+    border: 2px solid #73AD21;
+    margin-top: 20%;
+}
+
+.main2 {
+    text-align: center;
+    opacity: 0.6;
+    background-image: url("http://efdreams.com/data_images/dreams/paper/paper-06.jpg");
+    border-radius: 25px;
+    border: 2px solid #73AD21;
+    margin-top: 20%;
+}
