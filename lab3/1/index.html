@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Lab3/1</title>
+    <link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+    <table class="sortable" id="sortable">
+        <tr>
+            <td class="bold">Nume</td>
+            <td>Nicola</td>
+            <td>Adam</td>
+            <td>Bolnizar</td>
+            <td>Bjz</td>
+        </tr>
+        <tr>
+            <td class="bold">Prenume</td>
+            <td>Claudiu</td>
+            <td>Marius</td>
+            <td>Paul</td>
+            <td>Alex</td>
+        </tr>
+        <tr>
+            <td class="bold">Varsta</td>
+            <td>20</td>
+            <td>21</td>
+            <td>19</td>
+            <td>20</td>
+        </tr>
+    </table>
+</body>
+
+</html>
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function() {
+        var tables = document.getElementsByTagName('table');
+
+        function sortLine(row) {
+            var flag = row.getAttribute('order'),
+                list = [],
+                cells,
+                cellsLength,
+                i;
+            row.setAttribute('order', flag && flag === '0' ? '1' : '0');
+
+            for (i = 1; i < row.cells.length; i++) {
+                list[i - 1] = row.cells[i].innerHTML;
+            }
+
+            list.sort();
+            if (flag == 1) {
+                list.reverse();
+            }
+
+            //test purpose
+            console.log(list);
+
+            for (i = 1; i < row.cells.length; i++) {
+                row.cells[i].innerHTML = list[i - 1];
+            }
+        }
+
+        function handleTable(table) {
+            var rows = table.rows,
+                row, i;
+            for (i = 0; i < rows.length; i++) {
+                row = rows[i];
+                row.cells[0].addEventListener('click', function(event) {
+                    sortLine(event.target.parentElement);
+                });
+            }
+        }
+
+        for (var index = 0; index < tables.length; index++) {
+            handleTable(tables[index]);
+        }
+    });
+</script>

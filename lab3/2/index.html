@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Lab3/2</title>
+    <link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+    <div id="background"></div>
+    <button onclick="changeBackground()">Button 1</button>
+    <button onclick="changeLinks()">Button 2</button>
+    <ul>
+        <li><a href="https://en.wikipedia.org/wiki/Main_Page">Wikipedia Main Page</a></li>
+        <li><a href="https://en.wikipedia.org/wiki/Lynne_Hanley">Lynne Hanley</a></li>
+        <li><a href="https://en.wikipedia.org/wiki/Abermule">Abermule</a></li>
+        <li><a href="https://en.wikipedia.org/wiki/The_Pastel_Journal">The_Pastel_Journal</a></li>
+        <li><a href="https://en.wikipedia.org/wiki/Ms._G.O.A.T.">Ms._G.O.A.T.</a></li>
+        <li><a href="https://en.wikipedia.org/wiki/Zmodeler">Zmodeler</a></li>
+        <li><a href="https://en.wikipedia.org/wiki/Rub%C3%A9n_Paz">Rub_Paz</a></li>
+        <li><a href="https://en.wikipedia.org/wiki/Pan_Mei_Chen">Pan_Mei_Chen</a></li>
+        <li><a href="https://en.wikipedia.org/wiki/Potamogeton_compressus">Potamogeton_compressus</a></li>
+        <li><a href="https://en.wikipedia.org/wiki/Ted_Washington_Sr.">Ted_Washington_Sr.</a></li>
+    </ul>
+</body>
+<script>
+    function randomIntFromInterval(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+
+    function changeBackground() {
+        const random = randomIntFromInterval(1, 5);
+        document.body.style.backgroundImage = `url('img/${random}.jpg')`;
+    }
+
+    function getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+
+    function changeLinks() {
+        const links = document.querySelectorAll('a');
+        links.forEach(link => {
+            link.style.color = getRandomColor();
+            const random = randomIntFromInterval(1, 200);
+            link.style.borderRadius = random + 'px';
+
+        });
+    }
+</script>
+
+</html>

@@ -1,0 +1,12 @@
+#background {
+    background-image: url('img/1.jpg');
+    opacity: 0.5;
+}
+ul {
+    font-size: 30px;
+    padding: 20px;
+}
+
+a {
+    background: rgba(255,0,0,0.1);
+}
