@@ -24,10 +24,27 @@
         </tr>
         <tr>
             <td class="bold">Varsta</td>
+            <td>2</td>
+            <td>21</td>
+            <td>10</td>
+            <td>1</td>
+        </tr>
+    </table>
+    <table class="sortable" id="sortable">
+        <tr>
+            <td class="bold">Fructe</td>
+            <td>Pere</td>
+            <td>Mere</td>
+        </tr>
+        <tr>
+            <td class="bold">Cantitate</td>
+            <td>2</td>
+            <td>10</td>
+        </tr>
+        <tr>
+            <td class="bold">Pret</td>
             <td>20</td>
             <td>21</td>
-            <td>19</td>
-            <td>20</td>
         </tr>
     </table>
 </body>
@@ -49,7 +66,12 @@
                 list[i - 1] = row.cells[i].innerHTML;
             }
 
-            list.sort();
+            list.sort((a, b) => {
+                if (parseInt(a)
+                    return a - b;
+                else
+                    return a > b ? 1 : -1;
+            });
             if (flag == 1) {
                 list.reverse();
             }
