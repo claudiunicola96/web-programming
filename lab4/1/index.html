@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Lab3/1</title>
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <th>Nume</th>
+            <td>Nicola</td>
+            <td>Adam</td>
+            <td>Bolnizar</td>
+            <td>Bjz</td>
+        </tr>
+        <tr>
+            <th>Prenume</th>
+            <td>Claudiu</td>
+            <td>Marius</td>
+            <td>Paul</td>
+            <td>Alex</td>
+        </tr>
+        <tr>
+            <th>Varsta</th>
+            <td>2</td>
+            <td>21</td>
+            <td>10</td>
+            <td>1</td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <th>Fructe</th>
+            <td>Pere</td>
+            <td>Mere</td>
+        </tr>
+        <tr>
+            <th>Cantitate</th>
+            <td>2</td>
+            <td>10</td>
+        </tr>
+        <tr>
+            <th>Pret</th>
+            <td>20</td>
+            <td>21</td>
+        </tr>
+    </table>
+</body>
+
+</html>
+<script type="text/javascript">
+    // var $a it's the with var a
+    // the $ sign it's just a convention to recognize
+    // the jquery objects.
+    $(document).ready(function() {
+        $('tr').on('click', 'th', function() {
+            var $columnNumber = $(this).parent().find('td').length;
+            // all tds
+            var $tds = $(this).parent().parent().find('td');
+            // all ths
+            var $ths = $(this).parent().parent().find('th');
+            // all tr
+            var $trs = $(this).parent().parent().find('tr');
+
+            // build columnData array
+            var columnData = new Array($columnNumber);
+            for (var i = 0; i < $columnNumber; i++) {
+                // init columnData[i] with an empty array
+                columnData[i] = [];
+                for (var j = i; j < $tds.length; j += $columnNumber) {
+                    columnData[i].push($tds[j]);
+                }
+            }
+
+            var $rowIndex = $(this).parent().index();
+
+            // at first call will be undefined
+            var sortOrder = $(this).attr("order");
+            // if this isn't the first call
+            if (typeof sortOrder !== 'undefined') {
+                if (sortOrder == 'true') {
+                    sortOrder = 1;
+                }
+                else {
+                    sortOrder = 0;
+                }
+            }
+
+            columnData.sort(function(a, b) {
+                var x = a[$rowIndex].innerText;
+                var y = b[$rowIndex].innerText;
+                if (!isNaN(x)) {
+                    x = parseInt(x);
+                    y = parseInt(y);
+                }
+                return (x > y) == !sortOrder;
+            });
+
+            sortOrder = !sortOrder;
+            $(this).attr("order", sortOrder);
+
+
+            // rebuild html
+            $($trs).each(function(index, value) {
+                var buffer = $(this).find('th')[0].outerHTML;
+                for (var i = 0; i < $columnNumber; ++i) {
+                    buffer += $(columnData[i][index])[0].outerHTML;
+                }
+                $(this).html(buffer);
+            });
+        })
+    });
+</script>
