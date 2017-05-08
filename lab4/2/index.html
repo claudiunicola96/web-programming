@@ -1,0 +1,61 @@
+<html>
+
+<head>
+    <title>Lab4/2</title>
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div id="rand_pos"></div>
+    <div id="points"></div>
+</body>
+
+</html>
+<script type="text/javascript">
+    function randomIntFromInterval(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+
+    $(document).ready(function() {
+        var images = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg'];
+        var points = 0;
+
+        $('#rand_pos').on('click', function() {
+            // direct reference to a DOM element
+            var pointsDOM = $('#points')[0];
+            if (!$('#rand_pos').hasClass('clicked')) {
+                points++;
+                $('#rand_pos').addClass('clicked');
+                pointsDOM.innerHTML = points;
+            }
+
+            if (points == 3) {
+                if (confirm('Game over!')) {
+                    alert('The score will be reset.');
+                    points = 0;
+                    pointsDOM.innerHTML = points;
+                }
+            }
+        });
+
+        setInterval(function() {
+            // generate position random
+            var bodyWidth = $('body')[0].clientWidth;
+            var bodyHeight = $('body')[0].clientHeight;
+            var randPosX = Math.floor((Math.random() * bodyWidth));
+            var randPosY = Math.floor((Math.random() * bodyHeight));
+
+            // set the new position
+            $('#rand_pos').css('left', randPosX);
+            $('#rand_pos').css('top', randPosY);
+
+            // set the new image
+            var imageUrl = 'img/' + randomIntFromInterval(1, images.length) + '.png';
+            $('#rand_pos').css('background-image', 'url(' + imageUrl + ')');
+            $('#rand_pos').removeClass('clicked');
+
+            console.log(imageUrl);
+        }, Math.floor((Math.random() * 450) + 500));
+    });
+</script>
