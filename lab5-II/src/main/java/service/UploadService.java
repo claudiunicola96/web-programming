@@ -90,4 +90,33 @@ public class UploadService {
 
         query.executeUpdate();
     }
+
+    public List<File> allTypes() throws SQLException {
+        PreparedStatement query = connection.prepareStatement("select distinct type from files");
+        ResultSet result = query.executeQuery();
+
+        List<File> types = new ArrayList<>();
+        while (result.next()) {
+            types.add(new File(result.getString(1)));
+        }
+
+        return types;
+    }
+
+    public List<File> getByType(String type) throws SQLException {
+        PreparedStatement query = connection.prepareStatement("select * from files where type=? ");
+        query.setString(1, type);
+        ResultSet result = query.executeQuery();
+        List<File> files = new ArrayList<>();
+        while (result.next()) {
+            files.add(new File(
+                    result.getInt(1),
+                    result.getString(2),
+                    result.getString(3),
+                    result.getLong(5)
+            ));
+        }
+
+        return files;
+    }
 }

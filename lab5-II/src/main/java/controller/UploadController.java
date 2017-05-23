@@ -15,7 +15,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by claudiu on 20.05.2017.
@@ -74,16 +76,43 @@ public class UploadController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        try {
-            List<model.File> files = service.all();
-            resp.setContentType("application/json");
-            resp.setCharacterEncoding("UTF-8");
-            String json = new Gson().toJson(files);
-            resp.getWriter().write(json);
-        } catch (SQLException e) {
-            resp.setStatus(400);
-            PrintWriter out = resp.getWriter();
-            out.print("Try again");
+        if (Objects.equals(req.getParameter("method"), "types")) {
+            try {
+                List<model.File> types = service.allTypes();
+                resp.setContentType("application/json");
+                resp.setCharacterEncoding("UTF-8");
+                String json = new Gson().toJson(types);
+                resp.getWriter().write(json);
+            } catch (SQLException e) {
+                resp.setStatus(400);
+                PrintWriter out = resp.getWriter();
+                out.print("Try again");
+            }
+        } else if (req.getParameter("type") != null && !Objects.equals(req.getParameter("type"), "default")) {
+            try {
+                String type = req.getParameter("type");
+                List<model.File> files = service.getByType(type);
+                resp.setContentType("application/json");
+                resp.setCharacterEncoding("UTF-8");
+                String json = new Gson().toJson(files);
+                resp.getWriter().write(json);
+            } catch (SQLException e) {
+                resp.setStatus(400);
+                PrintWriter out = resp.getWriter();
+                out.print("Try again");
+            }
+        } else {
+            try {
+                List<model.File> files = service.all();
+                resp.setContentType("application/json");
+                resp.setCharacterEncoding("UTF-8");
+                String json = new Gson().toJson(files);
+                resp.getWriter().write(json);
+            } catch (SQLException e) {
+                resp.setStatus(400);
+                PrintWriter out = resp.getWriter();
+                out.print("Try again");
+            }
         }
     }
 

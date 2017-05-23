@@ -4,12 +4,6 @@
 
 $(document).ready(function () {
     $("#menu").load("menu.html");
-
-    $("#types").on("change", function () {
-        $.ajax({
-            url: "/action"
-        });
-    })
 });
 
 function showCollection() {

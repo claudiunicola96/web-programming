@@ -25,6 +25,10 @@ public class File {
         this.size = size;
     }
 
+    public File(String type) {
+        this.type = type;
+    }
+
     public int getId() {
         return id;
     }
