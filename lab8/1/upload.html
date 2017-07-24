@@ -1,0 +1,26 @@
+<script>
+    $(document).ready(function () {
+        $('#btnUpload').on('click', function () {
+            $.ajax({
+                url: "http://localhost:8000/upload",
+                type: "POST",
+                data: new FormData(document.getElementById("upload")),
+                enctype: 'multipart/form-data',
+                processData: false,
+                contentType: false
+            }).done(function () {
+                $("#content").load("collection.html");
+            }).fail(function (data) {
+              var error = $.parseJSON(data.responseText);
+              alert(error.statusText);
+
+            });
+        });
+    });
+
+</script>
+<form id="upload">
+    Select file to Upload: <input type="file" id="file" name="file">
+    <button id="btnUpload" type="button">Upload file</button>
+
+</form>
