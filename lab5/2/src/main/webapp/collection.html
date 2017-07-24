@@ -1,0 +1,59 @@
+<script>
+    $(document).ready(function () {
+        function fillTable(uri) {
+            $.ajax({
+                url: uri,
+                type: "GET",
+                dataType: 'json',
+            }).done(function (data) {
+                var trHTML = '';
+                $.each(data, function (key, file) {
+                    var edit = "<button onclick='edit(" + file.id + ")' value='Edit'>Edit</button>";
+                    var remove = "<button onclick='remove(" + file.id + ")' value='Delete'>Delete</button>";
+                    trHTML +=
+                            '<tr><td>'
+                            + file.name
+                            + '</td><td>'
+                            + file.type
+                            + '</td><td>'
+                            + file.size
+                            + '</td><td>'
+                            + edit + " | " + remove
+                            + '</td>';
+                    trHTML += '</tr>';
+                });
+                $("#tBody").html(trHTML);
+            });
+        }
+
+        fillTable("/upload");
+        $.ajax({
+            url: "/upload?method=types",
+            method: "GET",
+            dataType: "json",
+        }).done(function (data) {
+            var options = '<option value="default">Select a type</option>';
+            $.each(data, function (key, file) {
+                options += '<option value=' + file.type + '>' + file.type + '</option>';
+            });
+            $("#types").html(options);
+
+        });
+
+        $("#types").on("change", function () {
+            fillTable("/upload?type=" + $(this).val())
+        });
+    });
+</script>
+<table>
+    <select id="types"></select>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Size</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody id="tBody"></tbody>
+</table>

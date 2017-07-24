@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ranking</title>
+</head>
+<body>
+<h1>Ranking</h1>
+<a href="index.html">Home</a>
+<table>
+    <tr>
+        <th>Echipa</th>
+        <th>Meciuri jucate</th>
+        <th>Victori</th>
+        <th>Infrangeri</th>
+        <th>Egaluri</th>
+        <th>Goluri marcate</th>
+        <th>Goluri luate</th>
+        <th>Puncte</th>
+    </tr>
+    <tbody>
+    <?php
+    include_once "Ranking.php";
+    $ranking = new Ranking();
+
+    foreach ($ranking->getRanking() as $team) {
+        echo "<tr><td>" . $team['name'] . "</td>";
+        echo "<td>" . $team['played'] . "</td>";
+        echo "<td>" . $team['wins'] . "</td>";
+        echo "<td>" . $team['defeats'] . "</td>";
+        echo "<td>" . $team['draws'] . "</td>";
+        echo "<td>" . $team['goals_scored'] . "</td>";
+        echo "<td>" . $team['goals_received'] . "</td>";
+        echo "<td>" . $team['score'] . "</td>";
+        echo "</tr>";
+    }
+
+    ?>
+    </tbody>
+</table>
+
+</body>
+</html>
